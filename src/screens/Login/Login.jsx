@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import AuthWrapper from '../../layouts/AuthWrapper/AuthWrapper'
 import { BsFillExclamationOctagonFill, BsCheck, BsX } from 'react-icons/bs'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 import axios from '../../api/axios'
 
@@ -140,7 +140,7 @@ const Login = () => {
                 </form>
                 <div className="d-flex justify-content-between">
                     <p>Don't have an account?</p>
-                    <a href="/sign-up">Sign Up</a>
+                    <Link to="/sign-up">Sign Up</Link>
                 </div>
             </section>
         </AuthWrapper>
