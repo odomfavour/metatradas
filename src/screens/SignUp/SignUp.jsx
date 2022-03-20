@@ -28,14 +28,14 @@ const SignUp = () => {
   const [matchFocus, setMatchFocus] = useState(false);
 
   const [email, setEmail] = useState('');
-  const [emailFocus, setEmailFocus] = useState(false);
+  // const [emailFocus, setEmailFocus] = useState(false);
 
   const [phone, setPhone] = useState('');
-  const [validPhone, setValidPhone] = useState(false);
-  const [phoneFocus, setPhoneFocus] = useState(false);
+  // const [validPhone, setValidPhone] = useState(false);
+  // const [phoneFocus, setPhoneFocus] = useState(false);
 
   const [errMsg, setErrMsg] = useState('');
-  const [success, setSuccess] = useState(false);
+  // const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     userRef.current.focus();
@@ -96,14 +96,14 @@ const SignUp = () => {
 
   return (
     <AuthWrapper>
-      {success ? (
+      {/* {success ? (
         <section>
           <h1>Success</h1>
           <a href="#sign">Sign In</a>
         </section>
       ) : ""
 
-      }
+      } */}
       <section>
         <p ref={errRef} className="my-2">{errMsg}</p>
         <a href="/">Home</a>

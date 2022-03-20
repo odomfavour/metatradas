@@ -84,6 +84,8 @@ const Login = () => {
         <AuthWrapper>
             <section>
                 <a href="/">Home</a>
+                <p ref={errRef} className="my-2">{errMsg}</p>
+                <p>{success}</p>
                 <form onSubmit={handleSubmit}>
                     <h3 className='text-center'>Log In</h3>
                     <div className="mb-3">

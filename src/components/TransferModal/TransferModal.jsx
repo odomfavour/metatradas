@@ -80,6 +80,8 @@ const TransferModal = ({ show, handleClose }) => {
                 <Modal.Title>Make a Transfer</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+            <p className="my-2">{errMsg}</p>
+            <p>{success}</p>
                 <form action="" onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label htmlFor="userName" className="form-label">Username

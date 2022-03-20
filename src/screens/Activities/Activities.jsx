@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import WithdrawalModal from '../../components/WithdrawalModal/WithdrawalModal'
 import DashboardWrapper from '../../layouts/DashboardWrapper/DashboardWrapper'
 import axios from '../../api/axios'
@@ -19,58 +19,66 @@ const Activities = () => {
     const [earnings, setEarnings] = useState([])
 
     const token = localStorage.getItem('userToken');
-    const getDeposits = async () => {
+    const getDeposits = useCallback(
+        async () => {
 
-        if (token) {
-            try {
-                const response = await axios.get('/api/account/deposits', {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                    },
-                })
-                console.log(response)
-                if (response) {
-                    let myDeposits = response.data.data
-                    if (myDeposits === !null || myDeposits > 0) {
-                        setDeposits(myDeposits);
+            if (token) {
+                try {
+                    const response = await axios.get('/api/account/deposits', {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + token
+                        },
+                    })
+                    console.log(response)
+                    if (response) {
+                        let myDeposits = response.data.data
+                        if (myDeposits === !null || myDeposits > 0) {
+                            setDeposits(myDeposits);
+                        }
                     }
+
+                } catch (error) {
+                    console.log(error)
                 }
-
-            } catch (error) {
-                console.log(error)
             }
-        }
 
-    }
-    const getDailyEarning = async () => {
+        },
+        [token],
+    )
 
-        if (token) {
-            try {
-                const response = await axios.get('/api/account/daily-earnings', {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                    },
-                })
-                if (response) {
-                    let myEarnings = response.data.data
-                    if (myEarnings === !null || myEarnings > 0) {
-                        setEarnings(myEarnings);
+    const getDailyEarning = useCallback(
+        async () => {
+
+            if (token) {
+                try {
+                    const response = await axios.get('/api/account/daily-earnings', {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + token
+                        },
+                    })
+                    if (response) {
+                        let myEarnings = response.data.data
+                        if (myEarnings === !null || myEarnings > 0) {
+                            setEarnings(myEarnings);
+                        }
                     }
+
+                } catch (error) {
+                    console.log(error)
                 }
-
-            } catch (error) {
-                console.log(error)
             }
-        }
 
-    }
+        },
+        [token],
+    )
+
     useEffect(() => {
         getDeposits();
         getDailyEarning();
 
-    }, [])
+    })
 
     return (
         <DashboardWrapper>

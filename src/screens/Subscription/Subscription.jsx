@@ -70,7 +70,7 @@ const Subscription = () => {
         getPackages();
         getMyPackage();
 
-    }, [packages, subscription])
+    },[0])
 
     return (
         <DashboardWrapper>
