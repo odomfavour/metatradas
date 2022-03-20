@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import AuthWrapper from '../../layouts/AuthWrapper/AuthWrapper'
 import { BsFillExclamationOctagonFill, BsCheck, BsX } from 'react-icons/bs'
+// import { useNavigate } from 'react-router-dom'
 
 import axios from '../../api/axios'
 
@@ -20,6 +21,7 @@ const Login = () => {
 
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
+    // const navigate = useNavigate();
 
     useEffect(() => {
         userRef.current.focus();
@@ -63,7 +65,7 @@ const Login = () => {
             console.log(response.data)
             const token = response.data.data;
             localStorage.setItem("userToken", token);
-            window.location.replace('/')
+            window.location.href = '/'
             console.log(JSON.stingify(response))
             setSuccess(true)
         } catch (error) {

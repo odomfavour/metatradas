@@ -31,7 +31,7 @@ const Subscription = () => {
                     console.log(error)
                 }
             } else {
-                window.location.replace('/')
+                window.location.replace('/login')
             }
     
         },
@@ -68,7 +68,7 @@ const Subscription = () => {
                     console.log(error)
                 }
             } else {
-                window.location.replace('/')
+                window.location.replace('/login')
             }
         },
       [token],
