@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import DashboardWrapper from '../../layouts/DashboardWrapper/DashboardWrapper'
 import './subscription.css'
 import axios from '../../api/axios'
@@ -11,66 +11,74 @@ const Subscription = () => {
 
     const token = localStorage.getItem('userToken');
 
-    const getPackages = async () => {
-        if (token) {
-            try {
-                const response = await axios.get('/api/packages/list', {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                    },
-                })
-                console.log(response)
-                if (response) {
-                    let subPackages = response.data.data;
-                    setPackages(subPackages);
+    const getPackages = useCallback(
+        async () => {
+            if (token) {
+                try {
+                    const response = await axios.get('/api/packages/list', {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + token
+                        },
+                    })
+                    console.log(response)
+                    if (response) {
+                        let subPackages = response.data.data;
+                        setPackages(subPackages);
+                    }
+    
+                } catch (error) {
+                    console.log(error)
                 }
-
-            } catch (error) {
-                console.log(error)
+            } else {
+                window.location.replace('/')
             }
-        } else {
-            window.location.replace('/')
-        }
-
-    }
+    
+        },
+      [token],
+    )
+    
     const convertDate = (timestamp) => {
         const d = new Date(timestamp);
         let date = d.getHours() + ":" + d.getMinutes() + ", " + d.toDateString();
         return date;
     }
-    const getMyPackage = async () => {
-        if (token) {
-            try {
-                const response = await axios.get('/api/packages/subscription', {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                    },
-                })
-                console.log(response)
-                if (response) {
-                    let activePackage = response.data.data
-                    let startDateTimestamp = response.data.data.start_date
-                    let EndDateTimestamp = response.data.data.end_date
-                    activePackage.startDate = convertDate(startDateTimestamp);
-                    activePackage.endDate = convertDate(EndDateTimestamp );
-
-                    setSubscription(activePackage);
+    const getMyPackage = useCallback(
+        async () => {
+            if (token) {
+                try {
+                    const response = await axios.get('/api/packages/subscription', {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + token
+                        },
+                    })
+                    console.log(response)
+                    if (response) {
+                        let activePackage = response.data.data
+                        let startDateTimestamp = response.data.data.start_date
+                        let EndDateTimestamp = response.data.data.end_date
+                        activePackage.startDate = convertDate(startDateTimestamp);
+                        activePackage.endDate = convertDate(EndDateTimestamp );
+    
+                        setSubscription(activePackage);
+                    }
+    
+                } catch (error) {
+                    console.log(error)
                 }
-
-            } catch (error) {
-                console.log(error)
+            } else {
+                window.location.replace('/')
             }
-        } else {
-            window.location.replace('/')
-        }
-    }
+        },
+      [token],
+    )
+    
     useEffect(() => {
         getPackages();
         getMyPackage();
 
-    },[0])
+    })
 
     return (
         <DashboardWrapper>
