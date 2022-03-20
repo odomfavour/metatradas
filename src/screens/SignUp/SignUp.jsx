@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import AuthWrapper from '../../layouts/AuthWrapper/AuthWrapper'
-
+import { Link } from 'react-router-dom'
 import { BsFillExclamationOctagonFill, BsCheck, BsX } from 'react-icons/bs'
 
 import axios from '../../api/axios'
@@ -192,7 +192,7 @@ const SignUp = () => {
         </form>
         <div className="d-flex justify-content-between">
           <p>Already have an account?</p>
-          <a href="/login">Log in</a>
+          <Link to="/login">Log In</Link>
         </div>
       </section>
     </AuthWrapper>
