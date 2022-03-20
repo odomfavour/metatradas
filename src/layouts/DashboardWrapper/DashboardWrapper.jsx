@@ -35,7 +35,7 @@ const DashboardWrapper = ({ children }) => {
     useEffect(() => {
         getDetails();
 
-    }, [])
+    })
 
     return (
         <main>
