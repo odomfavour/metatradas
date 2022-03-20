@@ -1,0 +1,18 @@
+.transaction-card {
+    background: pink;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.transfer-btn {
+    padding: 15px;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.transfer-btn svg {
+    color: rgb(212, 76, 76);
+    font-size: 30px;
+}

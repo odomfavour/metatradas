@@ -1,0 +1,11 @@
+.main-icon {
+    font-size: 40px;
+}
+
+.icon-box {
+    background: rgb(94, 94, 240);
+    border-radius: 10px;
+    padding: 30px;
+    color: #fff;
+    cursor: pointer;
+}

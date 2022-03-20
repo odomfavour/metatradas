@@ -1,0 +1,61 @@
+body {
+    font-family: 'Manrope', sans-serif !important;
+  }
+
+.auth-box {
+    background: #fff;
+    border-radius: 15px;
+    width: 100%;
+    padding: 50px 40px;
+}
+
+.auth-bg {
+    background: url(../../images/auth-bg.jpg) no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    background-position: 30% 70%;
+}
+
+.form-box {
+    min-height: 100vh;
+}
+
+.hide, .offscreen {
+    display: none;
+}
+
+.invalid, .valid {
+    display: inline-block;
+}
+
+.instructions {
+    display: block;
+}
+
+.valid-icon {
+    color: green;
+    font-size: 25px;
+}
+
+.invalid-icon {
+    color: red;
+    font-size: 25px;
+}
+
+.info-box {
+    background: rgb(23, 23, 107);
+    color: #fff;
+    padding: 10px 20px;
+    margin-top: 10px;
+
+}
+
+.bold-text {
+    font-weight: 900;
+}
+
+@media (max-width: 428px) {
+    .auth-box {
+        padding: 50px 15px;
+    }
+}

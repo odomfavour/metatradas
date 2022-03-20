@@ -1,0 +1,23 @@
+.card-shade {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+}
+
+.orange-shade {
+    background: orange;
+}
+.green-shade {
+    background: green;
+}
+.blue-shade {
+    background: blue;
+}
+
+.sub-card {
+    border: 2px solid rgb(197, 115, 115);
+    padding: 20px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 2px 3px 4px rgb(182, 133, 133);
+}
