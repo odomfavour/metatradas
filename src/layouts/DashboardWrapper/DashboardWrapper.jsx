@@ -23,9 +23,12 @@ const DashboardWrapper = ({ children }) => {
                     if (response.data._un_authorized === true) {
                         alert(response.data.error)
                         navigate('/login')
+                    } else if (response.data.success === false) {
+                        alert(response.data.error)
+                    } else {
+                        let details = response?.data?.data;
+                        setMyDetails(details);
                     }
-                    let details = response?.data?.data;
-                    setMyDetails(details);
                 } catch (error) {
                     console.log(error)
                 }
@@ -38,7 +41,7 @@ const DashboardWrapper = ({ children }) => {
         return () => {
             console.log('unmounting')
         }
-       
+
     }, [navigate, token])
 
     return (

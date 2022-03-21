@@ -47,12 +47,12 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const v1 = USER_REGEX.test(username)
-        const v2 = PWD_REGEX.test(pwd)
-        if (!v1 || !v2) {
-            setErrMsg("invalid Entry");
-            return;
-        }
+        // const v1 = USER_REGEX.test(username)
+        // const v2 = PWD_REGEX.test(pwd)
+        // if (!v1 || !v2) {
+        //     setErrMsg("invalid Entry");
+        //     return;
+        // }
         try {
             const response = await axios.post('/api/auth/login',
                 JSON.stringify({ username, password: pwd }),
@@ -62,7 +62,7 @@ const Login = () => {
                     },
                 }
             );
-            console.log(response.data)
+            console.log(response)
             if (response.data._un_authorized === true) {
                 setErrMsg("invalid Entry");
                 return;
@@ -75,6 +75,7 @@ const Login = () => {
             }
         
         } catch (error) {
+            console.log(error)
         if (!error?.response) {
             setErrMsg('No Server Response')
         } else if (error.response?.status === 409) {
@@ -142,7 +143,7 @@ return (
                         </small>
                     </div>
                 </div>
-                <button className="btn btn-primary" disabled={!validName || !validPwd ? true : false}>Submit</button>
+                <button className="btn btn-primary" disabled={!validName ? true : false}>Submit</button>
             </form>
             <div className="d-flex justify-content-between">
                 <p>Don't have an account?</p>

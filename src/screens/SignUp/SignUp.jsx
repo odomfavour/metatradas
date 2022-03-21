@@ -65,12 +65,12 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const v1 = USER_REGEX.test(username)
-    const v2 = PWD_REGEX.test(pwd)
-    if (!v1 || !v2) {
-      setErrMsg("invalid Entry");
-      return;
-    }
+    // const v1 = USER_REGEX.test(username)
+    // const v2 = PWD_REGEX.test(pwd)
+    // if (!v1 || !v2) {
+    //   setErrMsg("invalid Entry");
+    //   return;
+    // }
     try {
       const response = await axios.post('/api/auth/register',
         JSON.stringify({ username, password: pwd, email, phone_number: phone }),
@@ -81,6 +81,10 @@ const SignUp = () => {
         }
       );
       console.log(response)
+      if (response.data.success === false) {
+        alert(response.data.error)
+        return;
+      }
       navigate("/")
 
     } catch (error) {
@@ -190,7 +194,7 @@ const SignUp = () => {
             />
           </div>
 
-          <button className="btn btn-primary" disabled={!validName || !validPwd || !validMatch || !email || !phone ? true : false}>Submit</button>
+          <button className="btn btn-primary" disabled={!validName || !validMatch || !email || !phone ? true : false}>Submit</button>
         </form>
         <div className="d-flex justify-content-between">
           <p>Already have an account?</p>
