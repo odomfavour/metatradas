@@ -54,6 +54,11 @@ body {
     font-weight: 900;
 }
 
+.nav-link.active {
+    color:rgb(23, 23, 107);
+    font-weight: 600;
+}
+
 @media (max-width: 428px) {
     .auth-box {
         padding: 50px 15px;

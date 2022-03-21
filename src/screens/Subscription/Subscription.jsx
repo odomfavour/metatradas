@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import DashboardWrapper from '../../layouts/DashboardWrapper/DashboardWrapper'
 import './subscription.css'
 import axios from '../../api/axios'
+import { useNavigate } from 'react-router-dom'
 
 import subImage from '../../images/digital-currency.svg'
 
@@ -10,9 +11,15 @@ const Subscription = () => {
     const [subscription, setSubscription] = useState(null)
 
     const token = localStorage.getItem('userToken');
-
-    const getPackages = useCallback(
-        async () => {
+    const navigate = useNavigate();
+    
+    const convertDate = (timestamp) => {
+        const d = new Date(timestamp);
+        let date = d.getHours() + ":" + d.getMinutes() + ", " + d.toDateString();
+        return date;
+    }
+    useEffect(() => {
+        const getPackages = async () => {
             if (token) {
                 try {
                     const response = await axios.get('/api/packages/list', {
@@ -31,20 +38,11 @@ const Subscription = () => {
                     console.log(error)
                 }
             } else {
-                window.location.replace('/login')
+                navigate("/login")
             }
     
-        },
-      [token],
-    )
-    
-    const convertDate = (timestamp) => {
-        const d = new Date(timestamp);
-        let date = d.getHours() + ":" + d.getMinutes() + ", " + d.toDateString();
-        return date;
-    }
-    const getMyPackage = useCallback(
-        async () => {
+        }
+        const getMyPackage = async () => {
             if (token) {
                 try {
                     const response = await axios.get('/api/packages/subscription', {
@@ -68,17 +66,13 @@ const Subscription = () => {
                     console.log(error)
                 }
             } else {
-                window.location.replace('/login')
+                navigate("/login")
             }
-        },
-      [token],
-    )
-    
-    useEffect(() => {
+        }
         getPackages();
         getMyPackage();
 
-    })
+    }, [token, navigate])
 
     return (
         <DashboardWrapper>

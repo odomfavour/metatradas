@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import AuthWrapper from '../../layouts/AuthWrapper/AuthWrapper'
 import { Link } from 'react-router-dom'
 import { BsFillExclamationOctagonFill, BsCheck, BsX } from 'react-icons/bs'
+import { useNavigate } from 'react-router-dom'
 
 import axios from '../../api/axios'
 
@@ -36,6 +37,7 @@ const SignUp = () => {
 
   const [errMsg, setErrMsg] = useState('');
   // const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     userRef.current.focus();
@@ -79,7 +81,7 @@ const SignUp = () => {
         }
       );
       console.log(response)
-      window.location.replace('/')
+      navigate("/")
 
     } catch (error) {
       if (!error?.response) {

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Modal } from 'react-bootstrap'
 import axios from '../../api/axios'
 import { BsFillExclamationOctagonFill, BsCheck, BsX } from 'react-icons/bs'
+import { useNavigate } from 'react-router-dom'
 
 const USER_REGEX = /^[a-zA-Z][A-Za-z0-9-_]{2,23}$/;
 
@@ -14,6 +15,7 @@ const TransferModal = ({ show, handleClose }) => {
     const [amount, setAmount] = useState('');
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const result = USER_REGEX.test(username);
@@ -46,7 +48,7 @@ const TransferModal = ({ show, handleClose }) => {
                 if (response.data.success === false) {
                     if (response.data._un_authorized === true) {
                         alert(response.data.error)
-                        window.location.replace('/login')
+                        navigate('/login')
                     } else {
                         alert(response.data.error)
                     }

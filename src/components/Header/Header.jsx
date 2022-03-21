@@ -1,44 +1,34 @@
 import React from 'react'
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
+import { NavLink, useNavigate } from 'react-router-dom'
+
 
 const Header = ({ detail }) => {
+    const navigate = useNavigate();
     const logOut = () => {
         localStorage.removeItem('userToken');
-        window.location.replace('/login')
+        navigate('/login');
     }
     return (
-        // <Navbar bg="light" variant="light">
-        //     <Container>
-        //         <Navbar.Brand href="/">MetaTradas</Navbar.Brand>
-        //         <Nav className="ms-auto">
-        //             <Nav.Link href="/activities">Activities</Nav.Link>
-        //             <Nav.Link href="/subscription">Subscription</Nav.Link>
-        //             <Nav.Link href="/login">Login</Nav.Link>
-        //             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-        //                 <NavDropdown.Item href="/teams">Teams</NavDropdown.Item>
-        //                 <NavDropdown.Item href="/settings">Settings</NavDropdown.Item>
-        //                 <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-        //                 <NavDropdown.Divider />
-        //                 <NavDropdown.Item href="#action/3.4" onClick={logOut}>Log out</NavDropdown.Item>
-        //             </NavDropdown>
-        //         </Nav>
-        //     </Container>
-        // </Navbar>
         <Navbar bg="light" expand="lg">
             <Container>
-                <Navbar.Brand href="/">MetaTradas</Navbar.Brand>
+                <Navbar.Brand to="/">MetaTradas</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto">
-                        <Nav.Link href="/activities">Activities</Nav.Link>
-                        <Nav.Link href="/subscription">Subscription</Nav.Link>
-                        <Nav.Link href="/login">Login</Nav.Link>
+                        <NavLink to="/activities" className="nav-link">Activities</NavLink>
+                        <NavLink to="/subscription" className="nav-link">Subscription</NavLink>
+                        <NavLink to="/login" className="nav-link">Login</NavLink>
                         {detail ? <NavDropdown title={'Hello ' + detail.username} id="basic-nav-dropdown" className='text-capitalize'>
-                            <NavDropdown.Item href="/teams">Teams</NavDropdown.Item>
-                            <NavDropdown.Item href="/settings">Settings</NavDropdown.Item>
+                            <NavLink to="/teams" className="dropdown-item">
+                                Teams
+                            </NavLink>
+                            <NavLink to="/settings" className="dropdown-item">
+                                Settings
+                            </NavLink>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="#action/3.4" onClick={logOut}>Log out</NavDropdown.Item>
-                        </NavDropdown>: ""}
+                        </NavDropdown> : ""}
                     </Nav>
                 </Navbar.Collapse>
             </Container>

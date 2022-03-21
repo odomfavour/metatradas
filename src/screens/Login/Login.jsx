@@ -63,88 +63,94 @@ const Login = () => {
                 }
             );
             console.log(response.data)
-            const token = response.data.data;
-            localStorage.setItem("userToken", token);
-            navigate("/")
-            console.log(JSON.stingify(response))
-            setSuccess(true)
-        } catch (error) {
-            if (!error?.response) {
-                setErrMsg('No Server Response')
-            } else if (error.response?.status === 409) {
-                setErrMsg('Username Taken')
+            if (response.data._un_authorized === true) {
+                setErrMsg("invalid Entry");
+                return;
             } else {
-                setErrMsg('Login Failed')
+                const token = response.data.data;
+                localStorage.setItem("userToken", token);
+                navigate("/")
+                console.log(JSON.stingify(response))
+                setSuccess(true)
             }
-            // errRef.current.focus();
+        
+        } catch (error) {
+        if (!error?.response) {
+            setErrMsg('No Server Response')
+        } else if (error.response?.status === 409) {
+            setErrMsg('Username Taken')
+        } else {
+            setErrMsg('Login Failed')
         }
-        // console.log(username, pwd, email, phone);
-        setSuccess(true)
+        // errRef.current.focus();
     }
+    // console.log(username, pwd, email, phone);
+    setSuccess(true)
+}
 
-    return (
-        <AuthWrapper>
-            <section>
-                <a href="/">Home</a>
-                <p ref={errRef} className="my-2">{errMsg}</p>
-                <p>{success}</p>
-                <form onSubmit={handleSubmit}>
-                    <h3 className='text-center'>Log In</h3>
-                    <div className="mb-3">
-                        <label htmlFor="userName" className="form-label">Username
-                            <span className={validName ? "valid" : "hide"}>
-                                <BsCheck className='valid-icon' />
-                            </span> <span className={(validName || !username) ? "hide" : "invalid"}>
-                                <BsX className='invalid-icon' />
-                            </span>
-                        </label>
-                        <input type="text" className="form-control" id="userName" placeholder="John" ref={userRef}
-                            autoComplete="off"
-                            onChange={(e) => setUsername(e.target.value)}
-                            aria-invalid={validName ? "false" : "true"}
-                            onFocus={() => setUserFocus(true)}
-                            onBlur={() => setUserFocus(false)}
-                        />
-                        <div className={userFocus && username && !validName ? "instructions info-box" : "offscreen info-box"}>
-                            <small id="uidnote">
-                                <BsFillExclamationOctagonFill className='me-2' />
-                                4 to 24 characters.<br />
-                                Must begin with a letter. <br />
-                                Letters, numbers, underscores, hyphens are allowed.
-                            </small>
-                        </div>
+return (
+    <AuthWrapper>
+        <section>
+            <a href="/">Home</a>
+            <p ref={errRef} className="my-2">{errMsg}</p>
+            <p>{success}</p>
+            <form onSubmit={handleSubmit}>
+                <h3 className='text-center'>Log In</h3>
+                <div className="mb-3">
+                    <label htmlFor="userName" className="form-label">Username
+                        <span className={validName ? "valid" : "hide"}>
+                            <BsCheck className='valid-icon' />
+                        </span> <span className={(validName || !username) ? "hide" : "invalid"}>
+                            <BsX className='invalid-icon' />
+                        </span>
+                    </label>
+                    <input type="text" className="form-control" id="userName" placeholder="John" ref={userRef}
+                        autoComplete="off"
+                        onChange={(e) => setUsername(e.target.value)}
+                        aria-invalid={validName ? "false" : "true"}
+                        onFocus={() => setUserFocus(true)}
+                        onBlur={() => setUserFocus(false)}
+                    />
+                    <div className={userFocus && username && !validName ? "instructions info-box" : "offscreen info-box"}>
+                        <small id="uidnote">
+                            <BsFillExclamationOctagonFill className='me-2' />
+                            4 to 24 characters.<br />
+                            Must begin with a letter. <br />
+                            Letters, numbers, underscores, hyphens are allowed.
+                        </small>
                     </div>
-                    <div className="mb-3">
-                        <label htmlFor="password" className="form-label">Password
-                            <span className={validPwd ? "valid" : "hide"}>
-                                <BsCheck className='valid-icon' />
-                            </span> <span className={(validPwd || !pwd) ? "hide" : "invalid"}>
-                                <BsX className='invalid-icon' />
-                            </span>
-                        </label>
-                        <input type="password" className="form-control" id="exampleFormControlInput1" placeholder="password"
-                            onChange={(e) => setPwd(e.currentTarget.value)}
-                            onFocus={() => setPwdFocus(true)}
-                            onBlur={() => setPwdFocus(false)}
-                        />
-                        <div className={pwdFocus && !validPwd ? "instructions info-box" : "offscreen info-box"}>
-                            <small id="pwdnote">
-                                <BsFillExclamationOctagonFill className='me-2' />
-                                8 to 24 characters.<br />
-                                Must include uppercase and lowercase, a numbber and a special character. <br />
-                                Allowed characters.
-                            </small>
-                        </div>
-                    </div>
-                    <button className="btn btn-primary" disabled={!validName || !validPwd ? true : false}>Submit</button>
-                </form>
-                <div className="d-flex justify-content-between">
-                    <p>Don't have an account?</p>
-                    <Link to="/sign-up">Sign Up</Link>
                 </div>
-            </section>
-        </AuthWrapper>
-    )
+                <div className="mb-3">
+                    <label htmlFor="password" className="form-label">Password
+                        <span className={validPwd ? "valid" : "hide"}>
+                            <BsCheck className='valid-icon' />
+                        </span> <span className={(validPwd || !pwd) ? "hide" : "invalid"}>
+                            <BsX className='invalid-icon' />
+                        </span>
+                    </label>
+                    <input type="password" className="form-control" id="exampleFormControlInput1" placeholder="password"
+                        onChange={(e) => setPwd(e.currentTarget.value)}
+                        onFocus={() => setPwdFocus(true)}
+                        onBlur={() => setPwdFocus(false)}
+                    />
+                    <div className={pwdFocus && !validPwd ? "instructions info-box" : "offscreen info-box"}>
+                        <small id="pwdnote">
+                            <BsFillExclamationOctagonFill className='me-2' />
+                            8 to 24 characters.<br />
+                            Must include uppercase and lowercase, a numbber and a special character. <br />
+                            Allowed characters.
+                        </small>
+                    </div>
+                </div>
+                <button className="btn btn-primary" disabled={!validName || !validPwd ? true : false}>Submit</button>
+            </form>
+            <div className="d-flex justify-content-between">
+                <p>Don't have an account?</p>
+                <Link to="/sign-up">Sign Up</Link>
+            </div>
+        </section>
+    </AuthWrapper>
+)
 }
 
 export default Login

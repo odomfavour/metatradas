@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from '../../components/Header/Header'
 import axios from '../../api/axios'
 import { useNavigate } from 'react-router-dom'
@@ -6,11 +6,12 @@ import { useNavigate } from 'react-router-dom'
 const DashboardWrapper = ({ children }) => {
     const token = localStorage.getItem('userToken');
     const navigate = useNavigate();
-    const [myDetails, setMyDetails] = useState(null)
-    const getDetails = useCallback(
-        async () => {
-        
-            if (token) {
+    const [myDetails, setMyDetails] = useState(null);
+
+    useEffect(() => {
+        const getDetails = async () => {
+            if (token !== null) {
+                console.log('token', token)
                 try {
                     const response = await axios.get('api/account/me', {
                         headers: {
@@ -19,7 +20,11 @@ const DashboardWrapper = ({ children }) => {
                         },
                     })
                     console.log(response)
-                    let details = response.data.data;
+                    if (response.data._un_authorized === true) {
+                        alert(response.data.error)
+                        navigate('/login')
+                    }
+                    let details = response?.data?.data;
                     setMyDetails(details);
                 } catch (error) {
                     console.log(error)
@@ -27,19 +32,18 @@ const DashboardWrapper = ({ children }) => {
             } else {
                 navigate("/login")
             }
-    
-        },
-      [token, navigate],
-    )
-    
-    useEffect(() => {
-        getDetails();
 
-    })
+        }
+        getDetails();
+        return () => {
+            console.log('unmounting')
+        }
+       
+    }, [navigate, token])
 
     return (
         <main>
-            <Header detail={myDetails}/>
+            <Header detail={myDetails} />
             <div>
                 {children}
             </div>

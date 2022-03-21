@@ -8,7 +8,7 @@ const Teams = () => {
     const [team, setTeam] = useState([])
     const getTeams = async () => {
         const token = localStorage.getItem('userToken');
-        if(token) {
+        if (token) {
             try {
                 const response = await axios.get('/api/accounts/list', {
                     headers: {
@@ -21,12 +21,12 @@ const Teams = () => {
                     let teams = response.data.data
                     setTeam(teams);
                 }
-    
+
             } catch (error) {
                 console.log(error)
             }
         }
-        
+
     }
     useEffect(() => {
         getTeams();
@@ -41,7 +41,7 @@ const Teams = () => {
                         <h3 className='mb-3'>Teams</h3>
                     </div>
                     <div className="mt-5">
-                        <div className="row">
+                        {team ? <div className="row">
                             {team.map((member) => {
                                 return <div className="col-md-3 col-12 mb-3" key={member.id}>
                                     <div className="member-card">
@@ -56,7 +56,9 @@ const Teams = () => {
                                     </div>
                                 </div>
                             })}
-                        </div>
+                        </div> : <div className="text-center">
+                            <h3>No Teams</h3>
+                            </div>}
                     </div>
                 </div>
             </div>
